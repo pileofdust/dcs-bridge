@@ -29,7 +29,7 @@ jobs:
                 python -m PyInstaller dcs-bridge.spec
 
             - name: Create release
-              uses: docker://antonyurchenko/git-release:latest
+              uses: anton-yurchenko/git-release@main
               env:
                 GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
               with:
