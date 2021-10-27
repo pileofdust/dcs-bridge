@@ -1,0 +1,42 @@
+name: latest
+
+on:
+    push:
+        branches:
+            - main
+
+jobs:
+    build:
+        runs-on: windows-latest
+
+        steps:
+            - name: Checkout
+            - uses: actions/checkout@v1
+
+            - name: Set up Python 3.9
+              uses: actions/setup-python@v1
+              with:
+                python-version: 3.9
+                architecture: 'x64'
+
+            - name: Install requirements
+                run: |
+                    python -m pip install --upgrade pip
+                    pip install -r requirements.txt
+
+            - name: Build with PyInstaller
+                run: |
+                    python -m PyInstaller dcs-bridge.spec
+            - uses: actions/upload-artifact@v2
+                with:
+                    name: Windows_DCS-Bridge
+                    path: dist/dcs-bridge.exe
+
+            - name: Create release
+              uses: docker://antonyurchenko/git-release:latest
+              env:
+                GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                UNRELEASED: "update"
+              with:
+                args: dist/dcs-bridge.exe
+
