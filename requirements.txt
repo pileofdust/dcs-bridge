@@ -1,4 +1,5 @@
 pytest
 openpyxl
 pyinstaller
+pytest-cov
 
