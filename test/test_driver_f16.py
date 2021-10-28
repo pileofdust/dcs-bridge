@@ -1,7 +1,6 @@
 import pytest
 import re
-from time import localtime
-
+from collections import namedtuple
 from dcsbridge.drivers.f16 import Driver
 
 
@@ -261,7 +260,10 @@ def test_set_time(context):
 
     driver, tw = context
 
-    time = localtime(600000017)
+    test_time_struct = namedtuple(
+        'test_time_struct', ['tm_hour', 'tm_min', 'tm_sec'])
+
+    time = test_time_struct(11, 40, 17)
 
     seq = ["LEFT", "6", "1", "1", "4", "0", "1", "7", "ENTR", "LEFT"]
     driver.enter_time(time)
@@ -270,7 +272,7 @@ def test_set_time(context):
     tw.reset()
 
     # Time with leading zero in seconds
-    time = localtime(600000007)
+    time = test_time_struct(11, 40, 7)
 
     seq = ["LEFT", "6", "1", "1", "4", "0", "0", "7", "ENTR", "LEFT"]
     driver.enter_time(time)
