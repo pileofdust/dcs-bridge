@@ -9,3 +9,6 @@
 - Support for DCS Scratchpad coordinates import
 - Support for Aerodromes excel coordinates import
 
+### Changed
+- Using Python argparse to parse commandline arguments
+

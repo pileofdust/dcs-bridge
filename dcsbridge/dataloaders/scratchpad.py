@@ -16,8 +16,13 @@ class ScratchpadDataLoader:
     __CMD_NAME = 3
     __CMD_NAME_WITH_ARG = 5
 
-    def __init__(self, data_file):
-        self.__data_file_path = data_file_path = Path(data_file)
+    __SCRATCHPAD_FILE = Path.home() / \
+        Path("Saved Games") / Path("DCS.openbeta") / Path("Scratchpad") / Path("0000.txt")
+
+    def __init__(self, data_file=__SCRATCHPAD_FILE):
+        if not data_file:
+            data_file = self.__SCRATCHPAD_FILE
+        self.__data_file_path = Path(data_file)
 
     def __reset_data(self):
         self.__waypoints = {}
