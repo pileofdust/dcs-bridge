@@ -57,7 +57,7 @@ def test_load_single_coordinate_with_command():
 def test_load_multiple_complex():
     """
     GIVEN A DCS Scratchpad datafile with multiple coordinates and commands
-    WHEN the class is instantiated and methos is called
+    WHEN the class is instantiated and method is called
     THEN load into steerpoint according to index and commands
     """
 
@@ -75,3 +75,22 @@ def test_load_multiple_complex():
     assert waypoints[4] is not None
     assert waypoints[5] is not None
     assert waypoints[81] is not None
+
+def test_load_multiple_complex_with_bingo():
+    """
+    GIVEN A DCS Scratchpad datafile with multiple coordinates and commands
+    WHEN the class is instantiated and method is called
+    THEN load steerpoint and bingo setting
+    """
+
+    dataloader = DataLoader("test/resources/TestData-Multiple-Complex-With-Bingo-0000.txt")
+    dataloader.load_data()
+
+    waypoints = dataloader.get_waypoints()
+    assert waypoints is not None
+    assert type(waypoints) is dict
+    assert len(waypoints) == 6
+
+    bingo = dataloader.get_bingo()
+    assert bingo is not None
+    assert bingo == "4530"
