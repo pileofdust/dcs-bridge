@@ -79,18 +79,19 @@ def parse_arguments(argv):
 def main(argv):
     args = parse_arguments(argv)
 
-    dcsbios = DcsBios()
-    d = Driver(dcsbios)
+    if args.command:
+        dcsbios = DcsBios()
+        d = Driver(dcsbios)
 
-    handlers = {
-        "mission": execute_mission,
-        "bingo": execute_bingo,
-        "time": execute_time,
-        "index": execute_index,
-        "scratchpad": execute_scratchpad
-    }
+        handlers = {
+            "mission": execute_mission,
+            "bingo": execute_bingo,
+            "time": execute_time,
+            "index": execute_index,
+            "scratchpad": execute_scratchpad
+        }
 
-    handlers.get(args.command)(d, args)
+        handlers.get(args.command)(d, args)
 
 
 if __name__ == "__main__":
