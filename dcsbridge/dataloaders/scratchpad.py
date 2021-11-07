@@ -3,9 +3,6 @@ from pathlib import Path
 
 
 class ScratchpadDataLoader:
-    __waypoints = {}
-    __bingo = None
-
     # N 37°47.332', W 114°25.693'
     # 1497m, 4913ft
     __coordinates_pattern = re.compile(r"([NS]) (\d+)[°˚](\d+).(\d+)\', ([WE]) (\d+)[°˚](\d+).(\d+)\'")
@@ -20,6 +17,7 @@ class ScratchpadDataLoader:
         if not data_file:
             data_file = self.__SCRATCHPAD_FILE
         self.__data_file_path = Path(data_file)
+        self.__waypoints = {}
 
     def __reset_data(self):
         self.__waypoints = {}

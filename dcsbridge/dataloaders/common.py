@@ -8,9 +8,6 @@ class DataLoader:
     __COORDINATE_COLUMN = 1
     __ALTITUDE_COLUMN = 2
 
-    __ws = None
-    __waypoints = {}
-
     ###
     # waypoint = (idx, lat / lon, alt)
     ###
@@ -19,12 +16,13 @@ class DataLoader:
     __coordinates_pattern = re.compile(r"(\d+)[°˚](\d+).(\d+)\'([NS]) (\d+)[°˚](\d+).(\d+)\'([EW])")
 
     def __reset_data(self):
-        __waypoints = []
+        self.__waypoints = {}
 
     def __init__(self, data_file):
         data_file_path = Path(data_file)
         wb = openpyxl.load_workbook(data_file_path)
         self.__ws = wb.worksheets[0]
+        self.__waypoints = {}
 
     def __add_waypoint(self, row):
         idx = row[self.__INDEX_COLUMN]

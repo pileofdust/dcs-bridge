@@ -39,8 +39,6 @@ class ICP(str, Enum):
 
 class Driver:
 
-    __dcsbios = None
-
     __navigate_to_start = [ICP.LEFT]
     __navigate_to_steerpoints = [ICP.BTN_4]
     __navigate_to_bingo = [ICP.LIST, ICP.BTN_2]

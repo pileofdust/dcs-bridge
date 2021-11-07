@@ -4,19 +4,11 @@ from pathlib import Path
 
 
 class MissionPlanDataLoader:
-    __ws = None
-
     ###
     #   'bullseye' = ("LAT", "LON"),
     #   'waypoint' = [(name, alt, lat, lon, notes)],
     #   'bingo' = "Bingo Value"
     ###
-
-    __bullseye = None
-    __waypoints = []
-    __bingo = "0"
-    __default_bingo = "2000"
-    __ws = None
 
     # N36:59.650 E035:24.750
     __waypoint_coordinates_pattern = re.compile(r"([\w:.]+) ([\w:.]+)")
@@ -30,16 +22,16 @@ class MissionPlanDataLoader:
     __replace_pattern = re.compile(r"[:. ]")
 
     def __reset_data(self):
-        __bullseye = None
-        __waypoints = []
-        __bingo = self.__default_bingo
+        self.__bullseye = None
+        self.__waypoints = {}
+        self.__bingo = self.__default_bingo
 
     def __init__(self, path="data/Data.xlsx", bingo="2000"):
         data_file = Path(path)
         wb = openpyxl.load_workbook(data_file)
         self.__ws = wb.worksheets[0]
 
-        __default_bingo = bingo
+        self.__default_bingo = bingo
         self.__reset_data()
 
     def __bullseye(self, row):

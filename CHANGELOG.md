@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.0.1] - 2021-11-07
+### Fixed
+- Erroneous use of class value
+
 ## [1.0.0] - 2021-11-07
 
 ### Added
@@ -12,4 +16,6 @@
 
 ### Changed
 - Using Python argparse to parse commandline arguments
+
+## [Unreleased]
 

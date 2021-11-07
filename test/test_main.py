@@ -15,7 +15,8 @@ def test_parse_args():
 
 
 class TestDriver():
-    executed = False
+    def __init__(self):
+        self.executed = False
 
     def enter_time(self, time):
         self.executed = True
