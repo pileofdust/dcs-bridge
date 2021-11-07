@@ -1,6 +1,6 @@
 # Changelog
 
-## [Unreleased]
+## [1.0.0] - 2021-11-07
 
 ### Added
 - Driver for F-16
