@@ -4,6 +4,13 @@ from pathlib import Path
 
 
 class DataLoader:
+    _INDEX_COLUMN = 0
+    _COORDINATE_COLUMN = 1
+    _ALTITUDE_COLUMN = 2
+
+    # 35°44.0705'N 37°06.23947'E
+    _coordinates_pattern = re.compile(r"(\d+)[°˚](\d+).(\d+)\'([NS]) (\d+)[°˚](\d+).(\d+)\'([EW])")
+
     def __init__(self):
         self.__waypoints = {}
 
@@ -13,6 +20,28 @@ class DataLoader:
     def _add_waypoint(self, idx, lat, lon, alt):
         self.__waypoints[str(idx)] = (lat, lon, str(alt))
 
+    def _add_row_as_waypoint(self, row):
+        idx = row[self._INDEX_COLUMN]
+        lat, lon = self._parse_coordinates(row[self._COORDINATE_COLUMN])
+        altitude = self._parse_altitude(row[self._ALTITUDE_COLUMN])
+
+        self._add_waypoint(idx, lat, lon, altitude)
+
+    def _parse_coordinates(self, coordinates):
+        t = self._coordinates_pattern.match(coordinates).groups()
+        lat = f"{t[3]}{t[0]}{t[1]}{t[2]}"
+        lon = f"{t[7]}{int(t[4]):03d}{t[5]}{t[6]}"
+
+        return lat, lon
+
+    def _parse_altitude(self, altitude):
+        if not altitude:
+            altitude = "0"
+        elif type(altitude) is not str:
+            altitude = str(round(altitude))
+
+        return altitude
+
     def get_waypoints(self):
         return self.__waypoints
 
@@ -20,44 +49,40 @@ class DataLoader:
         return self.__waypoints[index]
 
 
+class TextFileDataLoader(DataLoader):
+    def __init__(self, data_file, headers=True, delimiter=";", encoding="UTF-8"):
+        super().__init__()
+        self.__data_file_path = Path(data_file)
+        self.__headers = headers
+        self.__delimiter = delimiter
+        self.__encoding = encoding
+
+    def load_data(self):
+        self._reset_data()
+
+        skip_header = self.__headers
+        with open(self.__data_file_path, encoding=self.__encoding) as file:
+            lines = file.readlines()
+
+        if self.__headers and len(lines) > 1:
+            lines = lines[1:]
+
+        for line in lines:
+            values = re.split(self.__delimiter, line.strip())
+            self._add_row_as_waypoint(values)
+
+
 class ExcelDataLoader(DataLoader):
-    __INDEX_COLUMN = 0
-    __COORDINATE_COLUMN = 1
-    __ALTITUDE_COLUMN = 2
-
-    ###
-    # waypoint = (idx, lat / lon, alt)
-    ###
-
-    # 35°44.0705'N 37°06.23947'E
-    __coordinates_pattern = re.compile(r"(\d+)[°˚](\d+).(\d+)\'([NS]) (\d+)[°˚](\d+).(\d+)\'([EW])")
-
     def __init__(self, data_file):
         super().__init__()
         data_file_path = Path(data_file)
         wb = openpyxl.load_workbook(data_file_path)
         self.__ws = wb.worksheets[0]
 
-    def __parse_row(self, row):
-        idx = row[self.__INDEX_COLUMN]
-        coordinates = row[self.__COORDINATE_COLUMN]
-        altitude = row[self.__ALTITUDE_COLUMN]
-
-        if not altitude:
-            altitude = "0"
-        else:
-            altitude = round(altitude)
-
-        t = self.__coordinates_pattern.match(coordinates).groups()
-        lat = f"{t[3]}{t[0]}{t[1]}{t[2]}"
-        lon = f"{t[7]}{int(t[4]):03d}{t[5]}{t[6]}"
-
-        self._add_waypoint(idx, lat, lon, altitude)
-
     def load_data(self):
         self._reset_data()
 
         for row in self.__ws.iter_rows(2, self.__ws.max_row, 1, self.__ws.max_column, True):
             for cell in row:
-                self.__parse_row(row)
+                self._add_row_as_waypoint(row)
                 break

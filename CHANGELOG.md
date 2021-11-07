@@ -18,4 +18,6 @@
 - Using Python argparse to parse commandline arguments
 
 ## [Unreleased]
+### Added
+- Support for delimited text file import
 
