@@ -1,6 +1,6 @@
 from dcsbridge.drivers.f16 import Driver
 from dcsbridge.dataloaders.combatflite import MissionPlanDataLoader
-from dcsbridge.dataloaders.common import DataLoader
+from dcsbridge.dataloaders.file import DataLoader
 from dcsbridge.dataloaders.scratchpad import ScratchpadDataLoader
 from time import localtime
 import sys

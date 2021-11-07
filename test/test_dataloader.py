@@ -1,4 +1,4 @@
-from dcsbridge.dataloaders.common import DataLoader
+from dcsbridge.dataloaders.file import ExcelDataLoader
 
 
 def test_load_minimum():
@@ -8,7 +8,7 @@ def test_load_minimum():
     THEN waypoint are loaded and can be retrieved as a dictionary or individual by index
     """
 
-    dataloader = DataLoader("test/resources/TestData-Minimum.xlsx")
+    dataloader = ExcelDataLoader("test/resources/TestData-Minimum.xlsx")
     dataloader.load_data()
 
     waypoints = dataloader.get_waypoints()
