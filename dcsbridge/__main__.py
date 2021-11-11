@@ -1,6 +1,6 @@
 from dcsbridge.drivers.f16 import Driver
 from dcsbridge.dataloaders.combatflite import MissionPlanDataLoader
-from dcsbridge.dataloaders.file import DataLoader
+from dcsbridge.dataloaders.file import TextFileDataLoader
 from dcsbridge.dataloaders.scratchpad import ScratchpadDataLoader
 from time import localtime
 import sys
@@ -38,7 +38,7 @@ def execute_time(driver, args):
 
 
 def execute_index(driver, args):
-    dl = DataLoader(args.file)
+    dl = TextFileDataLoader(args.file)
     dl.load_data()
     driver.enter_steerpoint(dl.get_waypoint(args.index))
 
