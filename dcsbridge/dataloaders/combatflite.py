@@ -26,7 +26,7 @@ class MissionPlanDataLoader:
         self.__waypoints = {}
         self.__bingo = self.__default_bingo
 
-    def __init__(self, path="data/Data.xlsx", bingo="2000"):
+    def __init__(self, path="resources/Data.xlsx", bingo="2000"):
         data_file = Path(path)
         wb = openpyxl.load_workbook(data_file)
         self.__ws = wb.worksheets[0]
