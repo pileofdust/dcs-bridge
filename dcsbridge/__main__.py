@@ -3,6 +3,7 @@ from dcsbridge.dataloaders.combatflite import MissionPlanDataLoader
 from dcsbridge.dataloaders.file import TextFileDataLoader
 from dcsbridge.dataloaders.scratchpad import ScratchpadDataLoader
 from time import localtime
+import os
 import sys
 import socket
 import argparse
@@ -77,6 +78,9 @@ def parse_arguments(argv):
 
 
 def main(argv):
+    if getattr(sys, 'frozen', False) and hasattr(sys, '_MEIPASS'):
+        os.chdir(sys._MEIPASS)
+
     args = parse_arguments(argv)
 
     if args.command:

@@ -6,7 +6,13 @@ block_cipher = None
 
 a = Analysis(['dcs-bridge.py'],
              binaries=[],
-             datas=[],
+             datas=[
+                ("resources/aerodromes/Caucasus.csv", "."),
+                ("resources/aerodromes/Mariana.csv", "."),
+                ("resources/aerodromes/Nevada.csv", "."),
+                ("resources/aerodromes/Persian Gulf.csv", "."),
+                ("resources/aerodromes/Syria.csv", "."),
+             ],
              hiddenimports=[],
              hookspath=[],
              hooksconfig={},
