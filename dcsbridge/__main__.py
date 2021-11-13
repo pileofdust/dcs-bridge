@@ -7,6 +7,7 @@ import os
 import sys
 import socket
 import argparse
+import logging
 
 __DEFAULT_BINGO = "4000"
 __PROGRAM_NAME = "dcs-bridge"
@@ -52,6 +53,9 @@ def execute_scratchpad(driver, args):
 
 def parse_arguments(argv):
     parser = argparse.ArgumentParser(prog=__PROGRAM_NAME)
+    parser.add_argument("-v", "--verbose", required=False, action="store_true", help="enable output verbosity")
+    parser.add_argument("-vv", "--debug", required=False, action="store_true", help="enable debug output")
+
     subparser = parser.add_subparsers(dest="command")
     mission = subparser.add_parser("mission")
     bingo = subparser.add_parser("bingo")
@@ -76,12 +80,21 @@ def parse_arguments(argv):
 
     return parser.parse_args(argv)
 
+def enable_logging(argv):
+    if argv.verbose:
+        logging.basicConfig(level=logging.INFO)
+    elif argv.debug:
+        logging.basicConfig(level=logging.DEBUG)
+    else:
+        logging.basicConfig(level=logging.WARN)
 
 def main(argv):
+    args = parse_arguments(argv)
+
+    enable_logging(args)
+
     if getattr(sys, 'frozen', False) and hasattr(sys, '_MEIPASS'):
         os.chdir(sys._MEIPASS)
-
-    args = parse_arguments(argv)
 
     if args.command:
         dcsbios = DcsBios()

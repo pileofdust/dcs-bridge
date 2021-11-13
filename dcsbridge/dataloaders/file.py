@@ -1,5 +1,6 @@
 import openpyxl
 import re
+import logging
 from pathlib import Path
 
 
@@ -21,6 +22,7 @@ class DataLoader:
         self.__waypoints[str(idx)] = (lat, lon, str(alt))
 
     def _add_row_as_waypoint(self, row):
+        logging.debug(row)
         idx = row[self._INDEX_COLUMN]
         lat, lon = self._parse_coordinates(row[self._COORDINATE_COLUMN])
         altitude = self._parse_altitude(row[self._ALTITUDE_COLUMN])
@@ -28,6 +30,7 @@ class DataLoader:
         self._add_waypoint(idx, lat, lon, altitude)
 
     def _parse_coordinates(self, coordinates):
+        logging.debug(coordinates)
         t = self._coordinates_pattern.match(coordinates).groups()
         lat = f"{t[3]}{t[0]}{t[1]}{t[2]}"
         lon = f"{t[7]}{int(t[4]):03d}{t[5]}{t[6]}"
