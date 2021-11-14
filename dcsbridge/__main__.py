@@ -42,7 +42,7 @@ def execute_time(driver, args):
 def execute_index(driver, args):
     dl = TextFileDataLoader(args.file)
     dl.load_data()
-    driver.enter_steerpoint(dl.get_waypoint(args.index))
+    driver.enter_steerpoint(dl.get_waypoint(str(args.index)))
 
 
 def execute_scratchpad(driver, args):
