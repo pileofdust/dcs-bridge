@@ -22,3 +22,8 @@
 - Support for delimited text file import
 - Added coordinates for aerodromes on the Caucasus, Syria, Mariana, Nevada and Persian Gulf maps. Data from Minsky's excellent kneeboard files: https://www.digitalcombatsimulator.com/en/files/3312200/
 
+### Changed
+- File option for scratchpad command is now positional
+
+### Fixed
+- Index value was not converted to string when using index command

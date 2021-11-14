@@ -75,8 +75,8 @@ def parse_arguments(argv):
     index.add_argument("file", type=str, help="path to data file")
     index.add_argument("index", type=int, help="index value of entry to load")
 
-    scratchpad.add_argument("--file", type=str, required=False,
-        help="file where DCS Scratchpad coordinates are stored, defaults to 0000.txt in default Scratchpad")
+    scratchpad.add_argument("file", type=str, nargs="?",
+        help="file where DCS Scratchpad coordinates are stored, defaults to 0000.txt in default Scratchpad folder")
 
     return parser.parse_args(argv)
 
