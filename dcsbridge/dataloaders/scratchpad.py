@@ -1,5 +1,6 @@
 import re
 from pathlib import Path
+import logging
 
 
 class ScratchpadDataLoader:
@@ -25,6 +26,7 @@ class ScratchpadDataLoader:
     def load_data(self):
         self.__reset_data()
 
+        logging.info(f"Loading data from: {self.__data_file_path}")
         lines = None
         with open(self.__data_file_path, encoding="UTF-8") as file:
             lines = file.readlines()
