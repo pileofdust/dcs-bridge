@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.1.1] - 2021-11-19
+### Changed
+- Updated README with instruction correct instruction for running this version of the application
+
 ## [1.1.0] - 2021-11-19
 ### Added
 - Support for delimited text file import

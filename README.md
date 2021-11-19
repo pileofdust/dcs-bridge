@@ -25,10 +25,20 @@ optional arguments:
 
 ### Load steerpoints from DCS Scratchpad
 ```
-> dcs-bridge scratchpad [--file FILE]
+> dcs-bridge scratchpad [file]
 
 optional arguments:
-  --file FILE  file where DCS Scratchpad coordinates are stored, defaults to 0000.txt in default Scratchpad
+  file  file where DCS Scratchpad coordinates are stored, defaults to 0000.txt in default Scratchpad folder
+```
+
+### Load steerpoints from supplied Aerodrome data
+Included are the Aerodrome data from Minsky's excellent kneeboards: https://www.digitalcombatsimulator.com/en/files/3312200/
+```
+> dcs-bridge aerodrome {caucasus,nevada,syria,pg,mariana} <id>
+
+positional arguments:
+  {caucasus,nevada,syria,pg,mariana}    name of map to use
+  id                                    id of aerodrome to load
 ```
 
 ### Load steerpoints from list of aerodromes or objectives (e.g. BlueFlag)
