@@ -3,14 +3,22 @@ from dcsbridge.dataloaders.combatflite import MissionPlanDataLoader
 from dcsbridge.dataloaders.file import TextFileDataLoader
 from dcsbridge.dataloaders.scratchpad import ScratchpadDataLoader
 from time import localtime
-import os
+from pathlib import Path
 import sys
+import os
 import socket
 import argparse
 import logging
 
 __DEFAULT_BINGO = "4000"
 __PROGRAM_NAME = "dcs-bridge"
+__THEATERS = {
+    "caucasus" : "Caucasus",
+    "mariana" : "Mariana",
+    "nevada" : "Nevada",
+    "pg" : "Persian Gulf",
+    "syria" : "Syria"
+}
 
 
 class DcsBios:
@@ -45,6 +53,17 @@ def execute_index(driver, args):
     driver.enter_steerpoint(dl.get_waypoint(str(args.index)))
 
 
+def execute_aerodrome(driver, args):
+    dir = None
+    if getattr(sys, 'frozen', False) and hasattr(sys, '_MEIPASS'):
+        dir = Path(sys._MEIPASS)
+    else:
+        dir = Path(os.getcwd()) / Path("resources") / Path("aerodromes")
+    dl = TextFileDataLoader(dir / Path(f"{__THEATERS[args.theater]}.csv"))
+    dl.load_data()
+    driver.enter_steerpoint(dl.get_waypoint(str(args.id)))
+
+
 def execute_scratchpad(driver, args):
     dl = ScratchpadDataLoader(args.file)
     dl.load_data()
@@ -61,6 +80,7 @@ def parse_arguments(argv):
     bingo = subparser.add_parser("bingo")
     time = subparser.add_parser("time")
     index = subparser.add_parser("index")
+    aerodrome = subparser.add_parser("aerodrome")
     scratchpad = subparser.add_parser("scratchpad")
 
     mission.add_argument("file", type=str, help="path to excel file with mission plan")
@@ -75,10 +95,14 @@ def parse_arguments(argv):
     index.add_argument("file", type=str, help="path to data file")
     index.add_argument("index", type=int, help="index value of entry to load")
 
+    aerodrome.add_argument("theater", choices=["caucasus", "nevada", "syria", "pg", "mariana"])
+    aerodrome.add_argument("id", type=int, help="id of aerodrome to load")
+
     scratchpad.add_argument("file", type=str, nargs="?",
         help="file where DCS Scratchpad coordinates are stored, defaults to 0000.txt in default Scratchpad folder")
 
     return parser.parse_args(argv)
+
 
 def enable_logging(argv):
     if argv.verbose:
@@ -88,13 +112,11 @@ def enable_logging(argv):
     else:
         logging.basicConfig(level=logging.WARN)
 
+
 def main(argv):
     args = parse_arguments(argv)
 
     enable_logging(args)
-
-    if getattr(sys, 'frozen', False) and hasattr(sys, '_MEIPASS'):
-        os.chdir(sys._MEIPASS)
 
     if args.command:
         dcsbios = DcsBios()
@@ -105,6 +127,7 @@ def main(argv):
             "bingo": execute_bingo,
             "time": execute_time,
             "index": execute_index,
+            "aerodrome": execute_aerodrome,
             "scratchpad": execute_scratchpad
         }
 
