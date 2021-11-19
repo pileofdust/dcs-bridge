@@ -63,7 +63,7 @@ class TextFileDataLoader(DataLoader):
     def load_data(self):
         self._reset_data()
 
-        skip_header = self.__headers
+        logging.info(f"Loading data from: {self.__data_file_path}")
         with open(self.__data_file_path, encoding=self.__encoding) as file:
             lines = file.readlines()
 
