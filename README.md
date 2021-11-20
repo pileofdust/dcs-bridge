@@ -43,11 +43,15 @@ positional arguments:
 
 ### Load steerpoints from list of aerodromes or objectives (e.g. BlueFlag)
 ```
-> dcs-bridge index <file> <index>
+> dcs-bridge index [--columns COLUMNS] <file> <index>
 
 positional arguments:
   file        path to data file
   index       index value of entry to load
+
+optional arguments:
+  --columns COLUMNS, --cols COLUMNS
+              list of data column number in the format id,coordinates,altitude
 ```
 
 ### Set bingo value

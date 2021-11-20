@@ -33,3 +33,5 @@
 - Using Python argparse to parse commandline arguments
 
 ## [Unreleased]
+### Changed
+- Added option to _index_ command to specify which columns to use as data source

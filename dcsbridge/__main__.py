@@ -48,7 +48,7 @@ def execute_time(driver, args):
 
 
 def execute_index(driver, args):
-    dl = TextFileDataLoader(args.file)
+    dl = TextFileDataLoader(args.file, columns=args.columns)
     dl.load_data()
     driver.enter_steerpoint(dl.get_waypoint(str(args.index)))
 
@@ -94,6 +94,8 @@ def parse_arguments(argv):
 
     index.add_argument("file", type=str, help="path to data file")
     index.add_argument("index", type=int, help="index value of entry to load")
+    index.add_argument("--columns", "--cols", type=str, required=False,
+                       help="list of data column number in the format id,coordinates,altitude")
 
     aerodrome.add_argument("theater", choices=["caucasus", "nevada", "syria", "pg", "mariana"])
     aerodrome.add_argument("id", type=int, help="id of aerodrome to load")

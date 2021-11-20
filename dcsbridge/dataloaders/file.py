@@ -53,12 +53,18 @@ class DataLoader:
 
 
 class TextFileDataLoader(DataLoader):
-    def __init__(self, data_file, headers=True, delimiter=";", encoding="UTF-8"):
+    def __init__(self, data_file, headers=True, delimiter=";", encoding="UTF-8", columns:str=None):
         super().__init__()
         self.__data_file_path = Path(data_file)
         self.__headers = headers
         self.__delimiter = delimiter
         self.__encoding = encoding
+
+        if columns:
+            index, coords, alt = columns.split(",")
+            self._INDEX_COLUMN = int(index) - 1
+            self._COORDINATE_COLUMN = int(coords) - 1
+            self._ALTITUDE_COLUMN = int(alt) - 1
 
     def load_data(self):
         self._reset_data()
