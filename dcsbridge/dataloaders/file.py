@@ -82,16 +82,19 @@ class TextFileDataLoader(DataLoader):
 
 
 class ExcelDataLoader(DataLoader):
-    def __init__(self, data_file):
+    def __init__(self, data_file, headers=True):
         super().__init__()
         data_file_path = Path(data_file)
         wb = openpyxl.load_workbook(data_file_path)
         self.__ws = wb.worksheets[0]
+        self.__headers = headers
 
     def load_data(self):
         self._reset_data()
 
-        for row in self.__ws.iter_rows(2, self.__ws.max_row, 1, self.__ws.max_column, True):
+        min_row = 2 if self.__headers else 1
+
+        for row in self.__ws.iter_rows(min_row, self.__ws.max_row, 1, self.__ws.max_column, True):
             for cell in row:
                 self._add_row_as_waypoint(row)
                 break
