@@ -14,11 +14,14 @@ def test_parse_args():
     assert args.file == "some file"
 
 
-class TestDriver():
+class TestDriver:
     def __init__(self):
         self.executed = False
 
     def enter_time(self, time):
+        self.executed = True
+
+    def enter_bingo(self, bingo):
         self.executed = True
 
 
@@ -27,5 +30,13 @@ def test_execute_time():
     args = dcsbridge.__main__.parse_arguments(["time", "local"])
 
     dcsbridge.__main__.execute_time(driver, args)
+
+    assert driver.executed
+
+def test_execute_bingo():
+    driver = TestDriver()
+    args = dcsbridge.__main__.parse_arguments(["bingo", "6000"])
+
+    dcsbridge.__main__.execute_bingo(driver, args)
 
     assert driver.executed
