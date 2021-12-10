@@ -33,9 +33,11 @@ class ScratchpadDataLoader:
 
         idx = 1
         lines_iterator = iter(lines)
+
+        lat, lon, alt = None, None, None
         for line in lines_iterator:
             cmd = self.__command_pattern.match(line)
-            if cmd:
+            if cmd is not None:
                 index_with_arg, index_with_arg_value,\
                     index_without_arg, cmd_with_arg,\
                     cmd_with_arg_value, cmd_without_arg = cmd.groups()
@@ -49,15 +51,20 @@ class ScratchpadDataLoader:
                 elif cmd_with_arg:
                     self.__handle_command(lines_iterator, cmd_with_arg, cmd_with_arg_value)
             else:
-                coordinates = self.__coordinates_pattern.match(line)
-                if coordinates:
+                coordinates = None if lat is not None else self.__coordinates_pattern.match(line)
+                altitude = None if alt is not None else self.__altitude_pattern.match(line)
+
+                if coordinates is not None:
                     t = coordinates.groups()
                     lat = f"{t[0]}{t[1]}{t[2]}{t[3]}"
                     lon = f"{t[4]}{int(t[5]):03d}{t[6]}{t[7]}"
-                    alt_line = next(lines_iterator)
-                    alt = self.__altitude_pattern.match(alt_line).groups()[-1]
+                elif altitude is not None:
+                    alt = altitude.groups()[-1]
+
+                if lat is not None and lon is not None and alt is not None:
                     self.__waypoints[idx] = (lat, lon, alt)
                     idx = idx + 1
+                    lat, lon, alt = None, None, None
 
     def __handle_command(self, lines_iterator, cmd:str, cmd_args:str=None):
         if cmd.lower() == "bingo":

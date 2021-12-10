@@ -94,3 +94,32 @@ def test_load_multiple_complex_with_bingo():
     bingo = dataloader.get_bingo()
     assert bingo is not None
     assert bingo == "4530"
+
+def test_load_multiple_formats():
+    """
+    GIVEN A DCS Scratchpad datafile with steerpoint with coordinates in multiple different formats
+    WHEN the class is instantiated and method is called
+    THEN load steerpoint DDM coordinates
+    """
+
+    dataloader = DataLoader("test/resources/TestData-Scratchpad-Multiple-Formats.txt")
+    dataloader.load_data()
+
+    waypoints = dataloader.get_waypoints()
+    assert waypoints is not None
+    assert type(waypoints) is dict
+    assert len(waypoints) == 1
+
+    assert waypoints[1] is not None
+
+    wp = waypoints[1]
+    assert wp is not None
+
+    lat, lon, alt = wp
+    assert lat is not None
+    assert lon is not None
+    assert alt is not None
+
+    assert lat == "N3747332"
+    assert lon == "W11425693"
+    assert alt == "4913"
