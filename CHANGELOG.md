@@ -35,3 +35,6 @@
 ## [Unreleased]
 ### Changed
 - Added option to _index_ command to specify which columns to use as data source
+- Supporting DCS Scratchpad steerpoint with multiple coordinate formats
+- Supporting DCS Scratchpad steerpoint with elevation only in feet
+

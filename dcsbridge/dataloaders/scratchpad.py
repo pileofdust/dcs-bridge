@@ -7,7 +7,7 @@ class ScratchpadDataLoader:
     # N 37°47.332', W 114°25.693'
     # 1497m, 4913ft
     __coordinates_pattern = re.compile(r"([NS]) (\d+)[°˚](\d+).(\d+)\', ([WE]) (\d+)[°˚](\d+).(\d+)\'")
-    __altitude_pattern = re.compile(r"(\d+)m, (\d+)ft")
+    __altitude_pattern = re.compile(r"(\d+)ft")
     __bingo_pattern = re.compile(r"\A(\d+)")
     __command_pattern = re.compile(r"\A#(\d+) - ([\w ]+)|\A#(\d+)|\A#(\w+) - ([\w ]+)|\A#(\w+)")
 
@@ -52,14 +52,14 @@ class ScratchpadDataLoader:
                     self.__handle_command(lines_iterator, cmd_with_arg, cmd_with_arg_value)
             else:
                 coordinates = None if lat is not None else self.__coordinates_pattern.match(line)
-                altitude = None if alt is not None else self.__altitude_pattern.match(line)
+                altitude = None if alt is not None else self.__altitude_pattern.search(line)
 
                 if coordinates is not None:
                     t = coordinates.groups()
                     lat = f"{t[0]}{t[1]}{t[2]}{t[3]}"
                     lon = f"{t[4]}{int(t[5]):03d}{t[6]}{t[7]}"
                 elif altitude is not None:
-                    alt = altitude.groups()[-1]
+                    alt = altitude.groups()[0]
 
                 if lat is not None and lon is not None and alt is not None:
                     self.__waypoints[idx] = (lat, lon, alt)
