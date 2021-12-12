@@ -152,3 +152,45 @@ def test_load_steerpoint_without_altitude_in_meters():
     assert lat == "N3747332"
     assert lon == "W11425693"
     assert alt == "152"
+
+
+def test_load_scratchpad_with_aerodrome_command():
+    """
+    GIVEN A DCS Scratchpad datafile with aerodrome command
+    WHEN the class is instantiated and method is called
+    THEN load steerpoint coordinates from aerodrome file
+    """
+
+    dataloader = DataLoader("test/resources/TestData-Scratchpad-Aerodrome.txt")
+    dataloader.load_data()
+
+    waypoints = dataloader.get_waypoints()
+    assert waypoints is not None
+    assert type(waypoints) is dict
+    assert len(waypoints) == 6
+
+    assert waypoints[1] is not None
+    wp = waypoints[1]
+    assert wp is not None
+
+    lat, lon, alt = wp
+    assert lat is not None
+    assert lon is not None
+    assert alt is not None
+
+    assert lat == "N3232350"
+    assert lon == "E03811700"
+    assert alt == "2257"
+
+    assert waypoints[20] is not None
+    wp = waypoints[20]
+    assert wp is not None
+
+    lat, lon, alt = wp
+    assert lat is not None
+    assert lon is not None
+    assert alt is not None
+
+    assert lat == "N3714000"
+    assert lon == "W11547533"
+    assert alt == "4495"
