@@ -12,13 +12,6 @@ import logging
 
 __DEFAULT_BINGO = "4000"
 __PROGRAM_NAME = "dcs-bridge"
-__THEATERS = {
-    "caucasus" : "Caucasus",
-    "mariana" : "Mariana",
-    "nevada" : "Nevada",
-    "pg" : "Persian Gulf",
-    "syria" : "Syria"
-}
 
 
 class DcsBios:
@@ -54,14 +47,7 @@ def execute_index(driver, args):
 
 
 def execute_aerodrome(driver, args):
-    dir = None
-    if getattr(sys, 'frozen', False) and hasattr(sys, '_MEIPASS'):
-        dir = Path(sys._MEIPASS)
-    else:
-        dir = Path(os.getcwd()) / Path("resources") / Path("aerodromes")
-    dl = TextFileDataLoader(dir / Path(f"{__THEATERS[args.theater]}.csv"))
-    dl.load_data()
-    driver.enter_steerpoint(dl.get_waypoint(str(args.id)))
+    driver.enter_steerpoint(load_aerodromes(args.theater)[str(args.id)])
 
 
 def execute_scratchpad(driver, args):
