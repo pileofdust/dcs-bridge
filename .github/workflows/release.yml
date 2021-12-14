@@ -26,7 +26,7 @@ jobs:
             - name: Load cached Poetry installation
               uses: actions/cache@v2
               with:
-                path: ~/.local  # the path depends on the OS
+                path: C:/Users/runneradmin/AppData/Roaming/Python/Scripts  # the path depends on the OS
                 key: poetry-0  # increment to reset cache
 
             - name: Install Poetry
