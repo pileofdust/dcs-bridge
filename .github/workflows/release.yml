@@ -11,7 +11,7 @@ jobs:
       run:
         shell: bash
 
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout
@@ -26,11 +26,22 @@ jobs:
       - name: Load cached Poetry installation
         uses: actions/cache@v2
         with:
-          path: C:/Users/runneradmin/AppData/Roaming/Python/Scripts  # the path depends on the OS
-          key: poetry-0  # increment to reset cache
+          path: ~/.local   # the path depends on the OS
+          key: poetry-${{ hashFiles('**/poetry.lock') }}
 
       - name: Install Poetry
         uses: snok/install-poetry@v1
+
+      - name: Load cached venv
+        id: cached-poetry-dependencies
+        uses: actions/cache@v2
+        with:
+          path: .venv
+          key: venv-${{ runner.os }}-${{ hashFiles('**/poetry.lock') }}
+
+      - name: Install dependencies
+        if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
+        run: poetry install --no-interaction --no-root
 
       - name: Install requirements
         run: poetry install --no-interaction
@@ -39,10 +50,7 @@ jobs:
         run: poetry run pytest --cov=dcsbridge
 
       - name: Build package
-        run: poetry build
-
-      - name: Build with PyInstaller
-        run: poetry run PyInstaller dcs-bridge.spec
+        run: poetry build -vvv
 
       - name: Create release
         uses: anton-yurchenko/git-release@main
@@ -50,6 +58,5 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           args: |
-            dist/dcs-bridge.exe
             dist/dcsbridge-*.tar.gz
             dist/dcsbridge-*.whl
