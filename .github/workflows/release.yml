@@ -33,21 +33,16 @@ jobs:
         uses: snok/install-poetry@v1
 
       - name: Install requirements
-        run: |
-          poetry install --no-interaction
+        run: poetry install --no-interaction
 
       - name: Test
-        run: |
-          poetry run pytest --cov=dcsbridge
-          poetry run coverage report
+        run: poetry run pytest --cov=dcsbridge
 
       - name: Build package
-        run: |
-          poetry build
+        run: poetry build
 
       - name: Build with PyInstaller
-        run: |
-          poetry run PyInstaller dcs-bridge.spec
+        run: poetry run PyInstaller dcs-bridge.spec
 
       - name: Create release
         uses: anton-yurchenko/git-release@main
@@ -56,6 +51,5 @@ jobs:
         with:
           args: |
             dist/dcs-bridge.exe
-            dist/dcsbridge-?.?.?.tar.gz
-            dist/dcsbridge-?.?.?-py3-none-any.whl
-
+            dist/dcsbridge-*.tar.gz
+            dist/dcsbridge-*.whl
