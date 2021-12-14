@@ -41,6 +41,10 @@ jobs:
           poetry run pytest --cov=dcsbridge
           poetry run coverage report
 
+      - name: Build package
+        run: |
+          poetry build
+
       - name: Build with PyInstaller
         run: |
           poetry run PyInstaller dcs-bridge.spec
@@ -51,6 +55,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           args: |
+            dist/dcs-bridge.exe
             dist/dcsbridge-?.?.?.tar.gz
             dist/dcsbridge-?.?.?-py3-none-any.whl
 

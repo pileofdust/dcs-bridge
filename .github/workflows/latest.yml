@@ -41,6 +41,10 @@ jobs:
           poetry run pytest --cov=dcsbridge
           poetry run coverage report
 
+      - name: Build package
+        run: |
+          poetry build
+
       - name: Build with PyInstaller
         run: |
           poetry run PyInstaller dcs-bridge.spec
@@ -52,5 +56,6 @@ jobs:
           UNRELEASED: "update"
         with:
           args: |
+            dist/dcs-bridge.exe
             dist/dcsbridge-?.?.?.dev0.tar.gz
             dist/dcsbridge-?.?.?.dev0-py3-none-any.whl
