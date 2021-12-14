@@ -51,4 +51,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           UNRELEASED: "update"
         with:
-          args: dist/dcsbridge-?.?.?.dev0.tar.gz, dcsbridge-?.?.?.dev0-py3-none-any.whl
+          args: |
+            dist/dcsbridge-?.?.?.dev0.tar.gz
+            dist/dcsbridge-?.?.?.dev0-py3-none-any.whl
