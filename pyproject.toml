@@ -6,8 +6,9 @@ authors = ["Dusty <dusty61ytsud@gmail.com>"]
 license = "GPL 3.0"
 
 [tool.poetry.dependencies]
-python = "^3.9"
+python = ">=3.9 <3.11"
 openpyxl = "^3.0.9"
+pyinstaller = "^4.7"
 
 [tool.poetry.dev-dependencies]
 pytest = "^6.2.5"
