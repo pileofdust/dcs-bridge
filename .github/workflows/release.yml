@@ -7,6 +7,10 @@ on:
 
 jobs:
     build:
+      defaults:
+        run:
+          shell: bash
+
         runs-on: windows-latest
 
         steps:
@@ -19,23 +23,32 @@ jobs:
                 python-version: 3.9
                 architecture: 'x64'
 
+            - name: Load cached Poetry installation
+                uses: actions/cache@v2
+                with:
+                  path: ~/.local  # the path depends on the OS
+                  key: poetry-0  # increment to reset cache
+
+            - name: Install Poetry
+              uses: snok/install-poetry@v1
+
             - name: Install requirements
               run: |
-                python -m pip install --upgrade pip
-                pip install -r requirements.txt
+                poetry install --no-interaction
 
             - name: Test
               run: |
-                pytest --cov=dcsbridge test
+                poetry run pytest --cov=dcsbridge
+                poetry run coverage report
 
             - name: Build with PyInstaller
               run: |
-                python -m PyInstaller dcs-bridge.spec
+                poetry run PyInstaller dcs-bridge.spec
 
             - name: Create release
               uses: anton-yurchenko/git-release@main
               env:
                 GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
               with:
-                args: dist/dcs-bridge.exe
+                args: dist/dcsbridge-?.?.?.tar.gz, dcsbridge-?.?.?-py3-none-any.whl
 
