@@ -49,6 +49,9 @@ jobs:
       - name: Test
         run: poetry run pytest --cov=dcsbridge
 
+      - name: Black
+        run: poetry run black . --check -l 120
+
       - name: Build package
         run: poetry build -vvv
 
