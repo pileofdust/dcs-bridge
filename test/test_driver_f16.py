@@ -260,8 +260,7 @@ def test_set_time(context):
 
     driver, tw = context
 
-    test_time_struct = namedtuple(
-        'test_time_struct', ['tm_hour', 'tm_min', 'tm_sec'])
+    test_time_struct = namedtuple("test_time_struct", ["tm_hour", "tm_min", "tm_sec"])
 
     time = test_time_struct(11, 40, 17)
 
@@ -277,6 +276,7 @@ def test_set_time(context):
     seq = ["LEFT", "6", "1", "1", "4", "0", "0", "7", "ENTR", "LEFT"]
     driver.enter_time(time)
     play(seq, tw.get_result())
+
 
 def test_set_steerpoints_with_position(context):
     """
@@ -329,7 +329,7 @@ def test_set_steerpoints_with_position(context):
         "UP",
         "8",
         "2",
-        "ENTR"
+        "ENTR",
     ]
 
     steerpoints = {}

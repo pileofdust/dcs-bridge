@@ -79,7 +79,7 @@ class Driver:
     # Public fuctions
     #
 
-    def enter_steerpoint(self, sp, index:str=None):
+    def enter_steerpoint(self, sp, index: str = None):
         s = []
         if index:
             s += self.__encode(index)
@@ -106,7 +106,7 @@ class Driver:
 
         if type(sps) is list:
             for i, sp in enumerate(sps):
-                self.enter_steerpoint(sp, str(i+1))
+                self.enter_steerpoint(sp, str(i + 1))
         elif type(sps) is dict:
             keys = sorted(sps.keys())
             for key in keys:

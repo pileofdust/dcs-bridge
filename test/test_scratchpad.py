@@ -76,6 +76,7 @@ def test_load_multiple_complex():
     assert waypoints[5] is not None
     assert waypoints[81] is not None
 
+
 def test_load_multiple_complex_with_bingo():
     """
     GIVEN A DCS Scratchpad datafile with multiple coordinates and commands
@@ -94,6 +95,7 @@ def test_load_multiple_complex_with_bingo():
     bingo = dataloader.get_bingo()
     assert bingo is not None
     assert bingo == "4530"
+
 
 def test_load_multiple_formats():
     """
@@ -123,6 +125,7 @@ def test_load_multiple_formats():
     assert lat == "N3747332"
     assert lon == "W11425693"
     assert alt == "4913"
+
 
 def test_load_steerpoint_without_altitude_in_meters():
     """

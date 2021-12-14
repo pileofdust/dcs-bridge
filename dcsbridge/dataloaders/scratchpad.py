@@ -4,6 +4,7 @@ import logging
 from . import DataLoader
 from dcsbridge.services import load_aerodromes
 
+
 class ScratchpadDataLoader(DataLoader):
     # N 37°47.332', W 114°25.693'
     # 1497m, 4913ft
@@ -12,8 +13,7 @@ class ScratchpadDataLoader(DataLoader):
     __bingo_pattern = re.compile(r"\A(\d+)")
     __command_pattern = re.compile(r"\A#(\d+) - ([\w ]+)|\A#(\d+)|\A#(\w+) - ([\w ]+)|\A#(\w+)")
 
-    __SCRATCHPAD_FILE = Path.home() / \
-        Path("Saved Games") / Path("DCS.openbeta") / Path("Scratchpad") / Path("0000.txt")
+    __SCRATCHPAD_FILE = Path.home() / Path("Saved Games") / Path("DCS.openbeta") / Path("Scratchpad") / Path("0000.txt")
 
     __theaters = {"as": "syria", "am": "mariana", "an": "nevada", "apg": "pg"}
 
@@ -46,9 +46,14 @@ class ScratchpadDataLoader(DataLoader):
 
             cmd = self.__command_pattern.match(line)
             if cmd is not None:
-                index_with_arg, index_with_arg_value,\
-                    index_without_arg, cmd_with_arg,\
-                    cmd_with_arg_value, cmd_without_arg = cmd.groups()
+                (
+                    index_with_arg,
+                    index_with_arg_value,
+                    index_without_arg,
+                    cmd_with_arg,
+                    cmd_with_arg_value,
+                    cmd_without_arg,
+                ) = cmd.groups()
 
                 if index_without_arg:
                     self.__index = int(index_without_arg)
@@ -80,14 +85,14 @@ class ScratchpadDataLoader(DataLoader):
         self.__waypoints[self.__index] = (lat, lon, alt)
         self.__index = self.__index + 1
 
-    def __handle_command(self, lines_iterator, cmd:str, cmd_args:str=None):
+    def __handle_command(self, lines_iterator, cmd: str, cmd_args: str = None):
         if cmd.lower() == "bingo":
             for l in lines_iterator:
                 value = self.__bingo_pattern.match(l)
                 if value:
                     self.__bingo = value.groups()[0]
                     break
-        elif cmd.lower() in ["as", "ac", "apg", "an", "am"]:  #Aerodromes
+        elif cmd.lower() in ["as", "ac", "apg", "an", "am"]:  # Aerodromes
             for l in lines_iterator:
                 value = l.strip()
                 if value.isnumeric():

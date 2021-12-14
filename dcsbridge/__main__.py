@@ -70,24 +70,39 @@ def parse_arguments(argv):
     scratchpad = subparser.add_parser("scratchpad")
 
     mission.add_argument("file", type=str, help="path to excel file with mission plan")
-    mission.add_argument("--default-bingo", type=int, required=False, default=__DEFAULT_BINGO,
-                         help="default bingo value if mission from mission plan")
+    mission.add_argument(
+        "--default-bingo",
+        type=int,
+        required=False,
+        default=__DEFAULT_BINGO,
+        help="default bingo value if mission from mission plan",
+    )
 
     bingo.add_argument("bingo", type=int, help="bingo value to set in airframe")
 
-    time.add_argument("timezone", type=str, default='local', choices=['local'],
-                      help="timezone to use when entering current time")
+    time.add_argument(
+        "timezone", type=str, default="local", choices=["local"], help="timezone to use when entering current time"
+    )
 
     index.add_argument("file", type=str, help="path to data file")
     index.add_argument("index", type=int, help="index value of entry to load")
-    index.add_argument("--columns", "--cols", type=str, required=False,
-                       help="list of data column number in the format id,coordinates,altitude")
+    index.add_argument(
+        "--columns",
+        "--cols",
+        type=str,
+        required=False,
+        help="list of data column number in the format id,coordinates,altitude",
+    )
 
     aerodrome.add_argument("theater", choices=["caucasus", "nevada", "syria", "pg", "mariana"])
     aerodrome.add_argument("id", type=int, help="id of aerodrome to load")
 
-    scratchpad.add_argument("file", type=str, nargs="?",
-        help="file where DCS Scratchpad coordinates are stored, defaults to 0000.txt in default Scratchpad folder")
+    scratchpad.add_argument(
+        "file",
+        type=str,
+        nargs="?",
+        help="file where DCS Scratchpad coordinates are stored, defaults to 0000.txt in default Scratchpad folder",
+    )
 
     return parser.parse_args(argv)
 
@@ -116,7 +131,7 @@ def main(argv):
             "time": execute_time,
             "index": execute_index,
             "aerodrome": execute_aerodrome,
-            "scratchpad": execute_scratchpad
+            "scratchpad": execute_scratchpad,
         }
 
         handlers.get(args.command)(d, args)

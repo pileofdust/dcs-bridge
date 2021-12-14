@@ -33,6 +33,7 @@ def test_execute_time():
 
     assert driver.executed
 
+
 def test_execute_bingo():
     driver = TestDriver()
     args = dcsbridge.__main__.parse_arguments(["bingo", "6000"])

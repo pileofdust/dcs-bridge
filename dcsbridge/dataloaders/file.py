@@ -6,7 +6,7 @@ from . import DataLoader
 
 
 class TextFileDataLoader(DataLoader):
-    def __init__(self, data_file, headers=True, delimiter=";", encoding="UTF-8", columns:str=None):
+    def __init__(self, data_file, headers=True, delimiter=";", encoding="UTF-8", columns: str = None):
         super().__init__()
         self.__data_file_path = Path(data_file)
         self.__headers = headers
