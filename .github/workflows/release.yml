@@ -1,54 +1,54 @@
 name: release
 
 on:
-    push:
-        tags:
-            - "[0-9]+.[0-9]+.[0-9]+"
+  push:
+    tags:
+      - "[0-9]+.[0-9]+.[0-9]+"
 
 jobs:
-    build:
-        defaults:
-          run:
-            shell: bash
+  build:
+    defaults:
+      run:
+        shell: bash
 
-        runs-on: windows-latest
+    runs-on: windows-latest
 
-        steps:
-            - name: Checkout
-              uses: actions/checkout@v1
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
 
-            - name: Set up Python 3.9
-              uses: actions/setup-python@v1
-              with:
-                python-version: 3.9
-                architecture: 'x64'
+      - name: Set up Python 3.9
+        uses: actions/setup-python@v1
+        with:
+          python-version: 3.9
+          architecture: 'x64'
 
-            - name: Load cached Poetry installation
-              uses: actions/cache@v2
-              with:
-                path: C:/Users/runneradmin/AppData/Roaming/Python/Scripts  # the path depends on the OS
-                key: poetry-0  # increment to reset cache
+      - name: Load cached Poetry installation
+        uses: actions/cache@v2
+        with:
+          path: C:/Users/runneradmin/AppData/Roaming/Python/Scripts  # the path depends on the OS
+          key: poetry-0  # increment to reset cache
 
-            - name: Install Poetry
-              uses: snok/install-poetry@v1
+      - name: Install Poetry
+        uses: snok/install-poetry@v1
 
-            - name: Install requirements
-              run: |
-                poetry install --no-interaction
+      - name: Install requirements
+        run: |
+          poetry install --no-interaction
 
-            - name: Test
-              run: |
-                poetry run pytest --cov=dcsbridge
-                poetry run coverage report
+      - name: Test
+        run: |
+          poetry run pytest --cov=dcsbridge
+          poetry run coverage report
 
-            - name: Build with PyInstaller
-              run: |
-                poetry run PyInstaller dcs-bridge.spec
+      - name: Build with PyInstaller
+        run: |
+          poetry run PyInstaller dcs-bridge.spec
 
-            - name: Create release
-              uses: anton-yurchenko/git-release@main
-              env:
-                GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-              with:
-                args: dist/dcsbridge-?.?.?.tar.gz, dcsbridge-?.?.?-py3-none-any.whl
+      - name: Create release
+        uses: anton-yurchenko/git-release@main
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          args: dist/dcsbridge-?.?.?.tar.gz, dcsbridge-?.?.?-py3-none-any.whl
 
