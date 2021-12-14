@@ -39,7 +39,7 @@ jobs:
         run: poetry run pytest --cov=dcsbridge
 
       - name: Build package
-        run: poetry build
+        run: poetry build -vvv
 
       - name: Build with PyInstaller
         run: poetry run PyInstaller dcs-bridge.spec
