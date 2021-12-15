@@ -5,6 +5,10 @@ description = "Bridging the gap between supporting tools and DCS, Virtual Realit
 authors = ["Dusty <dusty61ytsud@gmail.com>"]
 license = "GPL 3.0"
 
+packages = [
+    { include = "dcsbridge", from = "src" }
+]
+
 [tool.poetry.dependencies]
 python = "^3.9"
 openpyxl = "^3.0.9"
