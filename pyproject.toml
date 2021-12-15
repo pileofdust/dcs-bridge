@@ -13,6 +13,7 @@ packages = [
 python = "^3.9"
 openpyxl = "^3.0.9"
 black = "^21.12b0"
+shiv = "^1.0.0"
 
 [tool.poetry.dev-dependencies]
 pytest = "^6.2.5"

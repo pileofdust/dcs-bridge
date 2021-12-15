@@ -115,7 +115,7 @@ def enable_logging(argv):
         logging.basicConfig(level=logging.WARN)
 
 
-def main(argv):
+def execute(argv):
     args = parse_arguments(argv)
 
     enable_logging(args)
@@ -136,5 +136,9 @@ def main(argv):
         handlers.get(args.command)(d, args)
 
 
+def main():
+    execute(sys.argv[1:])
+
+
 if __name__ == "__main__":
-    main(sys.argv[1:])
+    main()
