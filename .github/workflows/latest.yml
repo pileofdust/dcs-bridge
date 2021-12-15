@@ -56,7 +56,7 @@ jobs:
         run: poetry build -vvv
 
       - name: Build zipapp
-        run: shiv --site-packages src --compressed -o dist/dcsbridge.pyc -e "dcsbridge.__main__:main"
+        run: poetry run shiv --site-packages src --compressed -o dist/dcsbridge.pyc -e "dcsbridge.__main__:main"
 
       - name: Create release
         uses: anton-yurchenko/git-release@main
