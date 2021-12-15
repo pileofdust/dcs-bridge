@@ -1,4 +1,10 @@
 # DCS Bridge
+
+![GitHub last commit](https://img.shields.io/github/last-commit/pileofdust/dcs-bridge)
+[![Tests Status](https://github.com/pileofdust/dcs-bridge/workflows/latest/badge.svg?branch=main&event=push)](https://github.com/pileofdust/dcs-bridge/actions?query=workflow%3Alatest+branch%3Amain+event%3Apush)
+![GitHub release (latest by date including pre-releases)](https://img.shields.io/github/v/release/pileofdust/dcs-bridge)
+![GitHub](https://img.shields.io/github/license/pileofdust/dcs-bridge?color=green)
+
 Bridging the gap between supporting tools and DCS, Virtual Reality and the Real World.
 
 The full and immersive DCS experience usually includes a number of supporting applications and tools for
