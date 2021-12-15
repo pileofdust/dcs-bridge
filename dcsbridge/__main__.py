@@ -2,10 +2,9 @@ from dcsbridge.drivers.f16 import Driver
 from dcsbridge.dataloaders.combatflite import MissionPlanDataLoader
 from dcsbridge.dataloaders.file import TextFileDataLoader
 from dcsbridge.dataloaders.scratchpad import ScratchpadDataLoader
+from .services import load_aerodromes
 from time import localtime
-from pathlib import Path
 import sys
-import os
 import socket
 import argparse
 import logging

@@ -1,4 +1,5 @@
 from dcsbridge.dataloaders.scratchpad import ScratchpadDataLoader as DataLoader
+from importlib.resources import files
 
 
 def test_load_single_coordinate():
@@ -8,7 +9,8 @@ def test_load_single_coordinate():
     THEN load into current selected steerpoint
     """
 
-    dataloader = DataLoader("test/resources/TestData-Single-0000.txt")
+    datafile = files("test.resources").joinpath("TestData-Single-0000.txt")
+    dataloader = DataLoader(datafile)
     dataloader.load_data()
 
     waypoints = dataloader.get_waypoints()
@@ -32,7 +34,8 @@ def test_load_single_coordinate_with_command():
     THEN load into steerpoint with index from commmand
     """
 
-    dataloader = DataLoader("test/resources/TestData-Single-CMD-0000.txt")
+    datafile = files("test.resources").joinpath("TestData-Single-CMD-0000.txt")
+    dataloader = DataLoader(datafile)
     dataloader.load_data()
 
     waypoints = dataloader.get_waypoints()
@@ -61,7 +64,8 @@ def test_load_multiple_complex():
     THEN load into steerpoint according to index and commands
     """
 
-    dataloader = DataLoader("test/resources/TestData-Multiple-Complex-0000.txt")
+    datafile = files("test.resources").joinpath("TestData-Multiple-Complex-0000.txt")
+    dataloader = DataLoader(datafile)
     dataloader.load_data()
 
     waypoints = dataloader.get_waypoints()
@@ -84,7 +88,8 @@ def test_load_multiple_complex_with_bingo():
     THEN load steerpoint and bingo setting
     """
 
-    dataloader = DataLoader("test/resources/TestData-Multiple-Complex-With-Bingo-0000.txt")
+    datafile = files("test.resources").joinpath("TestData-Multiple-Complex-With-Bingo-0000.txt")
+    dataloader = DataLoader(datafile)
     dataloader.load_data()
 
     waypoints = dataloader.get_waypoints()
@@ -104,7 +109,8 @@ def test_load_multiple_formats():
     THEN load steerpoint DDM coordinates
     """
 
-    dataloader = DataLoader("test/resources/TestData-Scratchpad-Multiple-Formats.txt")
+    datafile = files("test.resources").joinpath("TestData-Scratchpad-Multiple-Formats.txt")
+    dataloader = DataLoader(datafile)
     dataloader.load_data()
 
     waypoints = dataloader.get_waypoints()
@@ -134,7 +140,8 @@ def test_load_steerpoint_without_altitude_in_meters():
     THEN load steerpoint DDM coordinates and elevation in feet
     """
 
-    dataloader = DataLoader("test/resources/TestData-Scratchpad-No-Meter.txt")
+    datafile = files("test.resources").joinpath("TestData-Scratchpad-No-Meter.txt")
+    dataloader = DataLoader(datafile)
     dataloader.load_data()
 
     waypoints = dataloader.get_waypoints()
@@ -164,7 +171,8 @@ def test_load_scratchpad_with_aerodrome_command():
     THEN load steerpoint coordinates from aerodrome file
     """
 
-    dataloader = DataLoader("test/resources/TestData-Scratchpad-Aerodrome.txt")
+    datafile = files("test.resources").joinpath("TestData-Scratchpad-Aerodrome.txt")
+    dataloader = DataLoader(datafile)
     dataloader.load_data()
 
     waypoints = dataloader.get_waypoints()

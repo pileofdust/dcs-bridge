@@ -41,4 +41,5 @@
 
 ### Changed
 - Moved from PIP to Poetry
+- Moved resource files into packages and using importlib
  
