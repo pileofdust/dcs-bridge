@@ -14,7 +14,7 @@ class ScratchpadDataLoader(DataLoader):
     __coordinates_pattern = re.compile(r"([NS]) (\d+)[°˚](\d+).(\d+)\', ([WE]) (\d+)[°˚](\d+).(\d+)\'")
     __altitude_pattern = re.compile(r"(\d+)ft")
     __bingo_pattern = re.compile(r"\A(\d+)")
-    __command_pattern = re.compile(r"\A#(\d+) - ([\w ]+)|\A#(\d+)|\A#(\w+) - ([\w ]+)|\A#(\w+)")
+    __command_pattern = re.compile(r"\A#(\d+) - ([\w ]+)|\A#(\d+)|\A#(\w+)[\W-]+([\w ]+)|\A#(\w+)")
 
     __SCRATCHPAD_FILE = Path.home() / Path("Saved Games") / Path("DCS.openbeta") / Path("Scratchpad") / Path("0000.txt")
 
@@ -58,13 +58,13 @@ class ScratchpadDataLoader(DataLoader):
                     cmd_without_arg,
                 ) = cmd.groups()
 
-                if index_without_arg:
+                if index_without_arg is not None:
                     self.__index = int(index_without_arg)
-                elif index_with_arg:
+                elif index_with_arg is not None:
                     self.__index = int(index_with_arg)
-                elif cmd_without_arg:
+                elif cmd_without_arg is not None:
                     self.__handle_command(lines_iterator, cmd_without_arg)
-                elif cmd_with_arg:
+                elif cmd_with_arg is not None:
                     self.__handle_command(lines_iterator, cmd_with_arg, cmd_with_arg_value)
             else:
                 coordinates = None if lat is not None else self.__coordinates_pattern.match(line)
@@ -96,12 +96,21 @@ class ScratchpadDataLoader(DataLoader):
                     self.__bingo = match.groups()[0]
                     break
         elif cmd.lower() in ["as", "ac", "apg", "an", "am"]:  # Aerodromes
-            for line in lines_iterator:
-                value = line.strip()  # type: str
-                if value.isnumeric():
-                    lat, lon, alt = load_aerodromes(self.__theaters[cmd.lower()])[value]
-                    self.__add_waypoint(lat, lon, alt)
-                    break
+            aerodrome = None
+            if cmd_args is not None:
+                id_value = cmd_args.strip()  # type: str
+                if id_value.isnumeric():
+                    aerodrome = id_value
+            else:
+                for line in lines_iterator:
+                    value = line.strip()  # type: str
+                    if value.isnumeric():
+                        aerodrome = value
+                        break
+
+            if aerodrome is not None:
+                lat, lon, alt = load_aerodromes(self.__theaters[cmd.lower()])[aerodrome]
+                self.__add_waypoint(lat, lon, alt)
 
     def get_waypoints(self):
         return self.__waypoints
