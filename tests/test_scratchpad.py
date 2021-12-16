@@ -9,7 +9,7 @@ def test_load_single_coordinate():
     THEN load into current selected steerpoint
     """
 
-    datafile = files("test.resources").joinpath("TestData-Single-0000.txt")
+    datafile = files("tests.resources").joinpath("TestData-Single-0000.txt")
     dataloader = DataLoader(datafile)
     dataloader.load_data()
 
@@ -34,7 +34,7 @@ def test_load_single_coordinate_with_command():
     THEN load into steerpoint with index from commmand
     """
 
-    datafile = files("test.resources").joinpath("TestData-Single-CMD-0000.txt")
+    datafile = files("tests.resources").joinpath("TestData-Single-CMD-0000.txt")
     dataloader = DataLoader(datafile)
     dataloader.load_data()
 
@@ -64,7 +64,7 @@ def test_load_multiple_complex():
     THEN load into steerpoint according to index and commands
     """
 
-    datafile = files("test.resources").joinpath("TestData-Multiple-Complex-0000.txt")
+    datafile = files("tests.resources").joinpath("TestData-Multiple-Complex-0000.txt")
     dataloader = DataLoader(datafile)
     dataloader.load_data()
 
@@ -88,7 +88,7 @@ def test_load_multiple_complex_with_bingo():
     THEN load steerpoint and bingo setting
     """
 
-    datafile = files("test.resources").joinpath("TestData-Multiple-Complex-With-Bingo-0000.txt")
+    datafile = files("tests.resources").joinpath("TestData-Multiple-Complex-With-Bingo-0000.txt")
     dataloader = DataLoader(datafile)
     dataloader.load_data()
 
@@ -109,7 +109,7 @@ def test_load_multiple_formats():
     THEN load steerpoint DDM coordinates
     """
 
-    datafile = files("test.resources").joinpath("TestData-Scratchpad-Multiple-Formats.txt")
+    datafile = files("tests.resources").joinpath("TestData-Scratchpad-Multiple-Formats.txt")
     dataloader = DataLoader(datafile)
     dataloader.load_data()
 
@@ -140,7 +140,7 @@ def test_load_steerpoint_without_altitude_in_meters():
     THEN load steerpoint DDM coordinates and elevation in feet
     """
 
-    datafile = files("test.resources").joinpath("TestData-Scratchpad-No-Meter.txt")
+    datafile = files("tests.resources").joinpath("TestData-Scratchpad-No-Meter.txt")
     dataloader = DataLoader(datafile)
     dataloader.load_data()
 
@@ -171,7 +171,7 @@ def test_load_scratchpad_with_aerodrome_command():
     THEN load steerpoint coordinates from aerodrome file
     """
 
-    datafile = files("test.resources").joinpath("TestData-Scratchpad-Aerodrome.txt")
+    datafile = files("tests.resources").joinpath("TestData-Scratchpad-Aerodrome.txt")
     dataloader = DataLoader(datafile)
     dataloader.load_data()
 

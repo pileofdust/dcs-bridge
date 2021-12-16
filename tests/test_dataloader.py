@@ -9,7 +9,7 @@ def test_load_minimum_excel():
     THEN waypoint are loaded and can be retrieved as a dictionary or individual by index
     """
 
-    dataloader = ExcelDataLoader("test/resources/TestData-Minimum.xlsx")
+    dataloader = ExcelDataLoader("tests/resources/TestData-Minimum.xlsx")
     dataloader.load_data()
 
     waypoints = dataloader.get_waypoints()
@@ -34,7 +34,7 @@ def test_load_minimum_text_file():
     THEN waypoint are loaded and can be retrieved as a dictionary or individual by index
     """
 
-    dataloader = TextFileDataLoader("test/resources/TestData-Minimum.csv")
+    dataloader = TextFileDataLoader("tests/resources/TestData-Minimum.csv")
     dataloader.load_data()
 
     waypoints = dataloader.get_waypoints()
@@ -59,7 +59,7 @@ def test_load_text_file_with_column_specification():
     THEN waypoint are loaded and can be retrieved as a dictionary or individual by index
     """
 
-    dataloader = TextFileDataLoader("test/resources/TestData-Columns.csv", columns="1,3,5")
+    dataloader = TextFileDataLoader("tests/resources/TestData-Columns.csv", columns="1,3,5")
     dataloader.load_data()
 
     waypoints = dataloader.get_waypoints()
