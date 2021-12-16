@@ -38,8 +38,11 @@
 - Supporting DCS Scratchpad steerpoint with multiple coordinate formats
 - Supporting DCS Scratchpad steerpoint with elevation only in feet
 - Added possibility to load aerodrome information using # command in scratchpad file
+- Building zipapp / executable archive
 
 ### Changed
 - Moved from PIP to Poetry
 - Moved resource files into packages and using importlib
- 
+
+### Removed
+- No longer building Windows executable
