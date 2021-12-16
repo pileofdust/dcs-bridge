@@ -65,6 +65,4 @@ jobs:
           UNRELEASED: "update"
         with:
           args: |
-            dist/dcsbridge-*.tar.gz
-            dist/dcsbridge-*.whl
-            dist/dcsbridge.pyc
+            dist/dcsbridge*
