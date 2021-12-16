@@ -59,7 +59,7 @@ jobs:
         run: poetry run shiv --site-packages src --compressed -o dist/dcsbridge.pyc -e "dcsbridge.__main__:main"
 
       - name: Create release
-        uses: anton-yurchenko/git-release@main
+        uses: docker://antonyurchenko/git-release:latest
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           UNRELEASED: "update"
