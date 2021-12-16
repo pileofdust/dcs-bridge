@@ -1,5 +1,20 @@
 # Changelog
 
+## [1.2.0]
+### Added
+- Added option to _index_ command to specify which columns to use as data source
+- Supporting DCS Scratchpad steerpoint with multiple coordinate formats
+- Supporting DCS Scratchpad steerpoint with elevation only in feet
+- Added possibility to load aerodrome information using # command in scratchpad file
+- Building zipapp / executable archive
+
+### Changed
+- Moved from PIP to Poetry
+- Moved resource files into packages and using importlib
+
+### Removed
+- No longer building Windows executable
+
 ## [1.1.1] - 2021-11-19
 ### Changed
 - Updated README with instruction correct instruction for running this version of the application
@@ -33,16 +48,3 @@
 - Using Python argparse to parse commandline arguments
 
 ## [Unreleased]
-### Added
-- Added option to _index_ command to specify which columns to use as data source
-- Supporting DCS Scratchpad steerpoint with multiple coordinate formats
-- Supporting DCS Scratchpad steerpoint with elevation only in feet
-- Added possibility to load aerodrome information using # command in scratchpad file
-- Building zipapp / executable archive
-
-### Changed
-- Moved from PIP to Poetry
-- Moved resource files into packages and using importlib
-
-### Removed
-- No longer building Windows executable
