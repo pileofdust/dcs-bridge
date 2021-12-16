@@ -1,6 +1,9 @@
-import pytest
 import re
+
 from collections import namedtuple
+
+import pytest
+
 from dcsbridge.drivers.f16 import Driver
 
 
@@ -163,7 +166,7 @@ def test_set_steerpoints(context):
     """
     GIVEN List of coordinates for steerpoints
     WHEN the list is privided and the execute method is called
-    THEN the steerpoint screen is entered and the correct sequence for the steerpoint is entered and the first steerpoint is selected
+    THEN the steerpoint the correct sequence for the steerpoint is entered and the first steerpoint is selected
     """
 
     driver, tw = context

@@ -1,6 +1,8 @@
-import openpyxl
 import re
+
 from pathlib import Path
+
+import openpyxl
 
 
 class MissionPlanDataLoader:
@@ -22,9 +24,9 @@ class MissionPlanDataLoader:
     __replace_pattern = re.compile(r"[:. ]")
 
     def __reset_data(self):
-        self.__bullseye = None
-        self.__waypoints = {}
-        self.__bingo = self.__default_bingo
+        self.__bullseye_coordinates = None
+        self.__waypoints = []
+        self.__bingo_value = self.__default_bingo
 
     def __init__(self, path="resources/Data.xlsx", bingo="2000"):
         data_file = Path(path)
@@ -38,24 +40,25 @@ class MissionPlanDataLoader:
         lat = row[0]
         lon = row[1]
         if lat and lon:
-            coord = "%s%s%s" % self.__bullseye_pattern.match(lat).groups()
-            self.__bullseye = self.__replace_pattern.sub("", coord)
+            groups = self.__bullseye_pattern.match(lat).groups()  # type: ignore
+            coord = f"{groups[0]}{groups[1]}{groups[2]}"
+            self.__bullseye_coordinates = self.__replace_pattern.sub("", coord)
 
     def __bingo(self, row):
         value = row[0]
         if value:
-            self.__bingo = str(value)
+            self.__bingo_value = str(value)
 
     def __waypoint(self, row):
         altitude = row[1]
 
         if altitude:
-            alt = self.__altitude_pattern.match(altitude).group(1)
+            alt = self.__altitude_pattern.match(altitude).group(1)  # type: ignore
         else:
             alt = "0"
 
         coordinates = row[4]
-        lat, lon = self.__waypoint_coordinates_pattern.match(coordinates).groups()
+        lat, lon = self.__waypoint_coordinates_pattern.match(coordinates).groups()  # type: ignore
 
         lat = self.__replace_pattern.sub("", lat)
         lon = self.__replace_pattern.sub("", lon)
@@ -90,4 +93,4 @@ class MissionPlanDataLoader:
         return self.__waypoints
 
     def get_bingo(self):
-        return self.__bingo
+        return self.__bingo_value

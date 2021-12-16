@@ -1,5 +1,6 @@
-from dcsbridge.dataloaders.scratchpad import ScratchpadDataLoader as DataLoader
 from importlib.resources import files
+
+from dcsbridge.dataloaders.scratchpad import ScratchpadDataLoader as DataLoader
 
 
 def test_load_single_coordinate():

@@ -1,4 +1,5 @@
-import select, socket
+import socket
+
 
 buffer = ""
 

@@ -1,5 +1,6 @@
-import dcsbridge.__main__
 import pytest
+
+import dcsbridge.__main__
 
 
 def test_parse_args():

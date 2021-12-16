@@ -1,8 +1,11 @@
-import re
-from pathlib import Path
 import logging
-from . import DataLoader
+import re
+
+from pathlib import Path
+
 from dcsbridge.services import load_aerodromes
+
+from . import DataLoader
 
 
 class ScratchpadDataLoader(DataLoader):
@@ -87,14 +90,14 @@ class ScratchpadDataLoader(DataLoader):
 
     def __handle_command(self, lines_iterator, cmd: str, cmd_args: str = None):
         if cmd.lower() == "bingo":
-            for l in lines_iterator:
-                value = self.__bingo_pattern.match(l)
-                if value:
-                    self.__bingo = value.groups()[0]
+            for line in lines_iterator:
+                match = self.__bingo_pattern.match(line)
+                if match:
+                    self.__bingo = match.groups()[0]
                     break
         elif cmd.lower() in ["as", "ac", "apg", "an", "am"]:  # Aerodromes
-            for l in lines_iterator:
-                value = l.strip()
+            for line in lines_iterator:
+                value = line.strip()  # type: str
                 if value.isnumeric():
                     lat, lon, alt = load_aerodromes(self.__theaters[cmd.lower()])[value]
                     self.__add_waypoint(lat, lon, alt)

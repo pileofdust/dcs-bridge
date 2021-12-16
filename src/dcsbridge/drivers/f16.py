@@ -1,13 +1,13 @@
-from time import sleep
 from enum import Enum
+from time import sleep
 
 
 class ICP(str, Enum):
     def __new__(cls, value, press, release):
         obj = str.__new__(cls, [value])
         obj._value_ = value
-        obj.press = press
-        obj.release = release
+        obj.press = press  # type: ignore
+        obj.release = release  # type: ignore
 
         return obj
 
@@ -66,10 +66,10 @@ class Driver:
 
         return True
 
-    def __encode(self, string:str):
+    def __encode(self, string: str):
         seq = []
         for i in range(0, len(string)):
-            seq.append(ICP(string[i]))
+            seq.append(ICP(string[i]))  # type: ignore
         return seq
 
     def __navigate_to_bullseye(self):

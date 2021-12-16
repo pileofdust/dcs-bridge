@@ -1,13 +1,17 @@
-from dcsbridge.drivers.f16 import Driver
+import argparse
+import logging
+import socket
+import sys
+
+from time import localtime
+
 from dcsbridge.dataloaders.combatflite import MissionPlanDataLoader
 from dcsbridge.dataloaders.file import TextFileDataLoader
 from dcsbridge.dataloaders.scratchpad import ScratchpadDataLoader
+from dcsbridge.drivers.f16 import Driver
+
 from .services import load_aerodromes
-from time import localtime
-import sys
-import socket
-import argparse
-import logging
+
 
 __DEFAULT_BINGO = "4000"
 __PROGRAM_NAME = "dcs-bridge"
@@ -133,7 +137,9 @@ def execute(argv):
             "scratchpad": execute_scratchpad,
         }
 
-        handlers.get(args.command)(d, args)
+        handler = handlers.get(args.command)
+        if handler is not None:
+            handler(d, args)
 
 
 def main():

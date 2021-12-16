@@ -1,6 +1,7 @@
-from pathlib import Path
-from dcsbridge.dataloaders.file import TextFileDataLoader
 from importlib.resources import files
+
+from dcsbridge.dataloaders.file import TextFileDataLoader
+
 
 __THEATERS = {"caucasus": "Caucasus", "mariana": "Mariana", "nevada": "Nevada", "pg": "Persian Gulf", "syria": "Syria"}
 

@@ -29,7 +29,7 @@ class DataLoader:
 
     def _parse_coordinates(self, coordinates):
         logging.debug(coordinates)
-        t = self._coordinates_pattern.match(coordinates).groups()
+        t = self._coordinates_pattern.match(coordinates).groups()  # type: ignore
         lat = f"{t[3]}{t[0]}{t[1]}{t[2]}"
         lon = f"{t[7]}{int(t[4]):03d}{t[5]}{t[6]}"
 
