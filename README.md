@@ -18,9 +18,17 @@ aircraft mission computer while we are waiting for ED to implement the data cart
 
 Currently, the tool only supports the F-16, but can easily be extended to support other airframes.
 
+### Installation
+- Make sure you have Python 3.9+ installed
+- Make sure you have DSC-BIOS installed and running
+- Download the latest release or build from the releases section on the right. For single executable file
+    choose the _dcsbridge.pyc_ asset
+- Place the file in the desired folder
+- Run the commands below from a terminal window or VoiceAttack to interact with the aircraft in DCS
+
 ### Load a mission plan from CombatFlite excel template
 ```
-> dcs-bridge mission [--default-bingo DEFAULT_BINGO] <file>
+> dcsbridge.pyc mission [--default-bingo DEFAULT_BINGO] <file>
 
 positional arguments:
   file      path to excel file with mission plan
@@ -31,7 +39,7 @@ optional arguments:
 
 ### Load steerpoints from DCS Scratchpad
 ```
-> dcs-bridge scratchpad [file]
+> dcsbridge.pyc scratchpad [file]
 
 optional arguments:
   file  file where DCS Scratchpad coordinates are stored, defaults to 0000.txt in default Scratchpad folder
@@ -40,7 +48,7 @@ optional arguments:
 ### Load steerpoints from supplied Aerodrome data
 Included are the Aerodrome data from Minsky's excellent kneeboards: https://www.digitalcombatsimulator.com/en/files/3312200/
 ```
-> dcs-bridge aerodrome {caucasus,nevada,syria,pg,mariana} <id>
+> dcsbridge.pyc aerodrome {caucasus,nevada,syria,pg,mariana} <id>
 
 positional arguments:
   {caucasus,nevada,syria,pg,mariana}    name of map to use
@@ -49,7 +57,7 @@ positional arguments:
 
 ### Load steerpoints from list of aerodromes or objectives (e.g. BlueFlag)
 ```
-> dcs-bridge index [--columns COLUMNS] <file> <index>
+> dcsbridge.pyc index [--columns COLUMNS] <file> <index>
 
 positional arguments:
   file        path to data file
@@ -62,7 +70,7 @@ optional arguments:
 
 ### Set bingo value
 ```
-> dcs-bridge bingo <bingo>
+> dcsbridge.pyc bingo <bingo>
 
 positional arguments:
   bingo       bingo value to set in airframe
@@ -70,7 +78,7 @@ positional arguments:
 
 ### Set time to the current real world time
 ```
-> dcs-bridge time {local}
+> dcsbridge.pyc time {local}
 
 positional arguments:
   {local}     timezone to use when entering current time
