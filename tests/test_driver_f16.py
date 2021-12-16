@@ -88,6 +88,13 @@ def test_set_bingo(context):
     driver.enter_bingo(value)
     play(seq, tw.get_result())
 
+    tw.reset()
+
+    value = 3299
+    seq = ["LEFT", "LIST", "2", "3", "2", "9", "9", "ENTR", "LEFT"]
+    driver.enter_bingo(value)
+    play(seq, tw.get_result())
+
 
 def test_set_steerpoint(context):
     """

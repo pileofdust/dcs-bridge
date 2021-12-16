@@ -66,7 +66,7 @@ class Driver:
 
         return True
 
-    def __encode(self, string):
+    def __encode(self, string:str):
         seq = []
         for i in range(0, len(string)):
             seq.append(ICP(string[i]))
@@ -76,7 +76,7 @@ class Driver:
         pass
 
     #
-    # Public fuctions
+    # Public functions
     #
 
     def enter_steerpoint(self, sp, index: str = None):
@@ -122,7 +122,7 @@ class Driver:
         s = []
         s += self.__navigate_to_start
         s += self.__navigate_to_bingo
-        s += self.__encode(bingo)
+        s += self.__encode(str(bingo))
         s.append(ICP.ENTR)
         s += self.__navigate_to_start
 
