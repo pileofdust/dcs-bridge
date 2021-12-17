@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.2.1]
+### Fixed
+- Release action
+
 ## [1.2.0]
 ### Added
 - Added option to _index_ command to specify which columns to use as data source
@@ -46,9 +50,3 @@
 
 ### Changed
 - Using Python argparse to parse commandline arguments
-
-## [Unreleased]
-### Added
-- Test
-### Changed
-### Fixed
