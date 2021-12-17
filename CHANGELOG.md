@@ -1,10 +1,14 @@
 # Changelog
 
-## [1.2.1]
+## [1.2.2] - 2021-12-17
 ### Fixed
 - Release action
 
-## [1.2.0]
+## [1.2.1] - 2021-12-17
+### Fixed
+- Release action
+
+## [1.2.0] - 2021-12-16
 ### Added
 - Added option to _index_ command to specify which columns to use as data source
 - Supporting DCS Scratchpad steerpoint with multiple coordinate formats
