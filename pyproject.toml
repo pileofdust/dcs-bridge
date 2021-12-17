@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "dcsbridge"
-version = "1.2.2"
+version = "1.2.3-dev"
 description = "Bridging the gap between supporting tools and DCS, Virtual Reality and the Real World."
 authors = ["Dusty <dusty61ytsud@gmail.com>"]
 license = "GPL 3.0"
