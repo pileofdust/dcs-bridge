@@ -63,6 +63,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           UNRELEASED: "update"
+          ALLOW_EMPTY_CHANGELOG: "true"
         with:
           args: |
             dist/dcsbridge-*.tar.gz

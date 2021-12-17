@@ -3,6 +3,8 @@
 ## [1.2.2] - 2021-12-17
 ### Fixed
 - Release action
+- Re-enabled pre-commits
+- Bumped project version
 
 ## [1.2.1] - 2021-12-17
 ### Fixed
